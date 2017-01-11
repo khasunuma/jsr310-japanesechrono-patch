@@ -120,15 +120,20 @@ public final class JapaneseEra
      */
     public static final JapaneseEra SHOWA = new JapaneseEra(1, LocalDate.of(1926, 12, 25));
     /**
-     * The singleton instance for the 'Heisei' era (1989-01-08 - current)
+     * The singleton instance for the 'Heisei' era (1989-01-08 - 2018-12-31)
      * which has the value 2.
      */
     public static final JapaneseEra HEISEI = new JapaneseEra(2, LocalDate.of(1989, 1, 8));
-
+    /**
+     * The singleton instance for the after 'Heisei' era (1989-01-08 - future)
+     * which has the value 3.
+     */
+    public static final JapaneseEra AFTER_HEISEI = new JapaneseEra(3, LocalDate.of(2019, 1, 1));
+    
     // the number of defined JapaneseEra constants.
     // There could be an extra era defined in its configuration.
-    private static final int N_ERA_CONSTANTS = HEISEI.getValue() + ERA_OFFSET;
-
+    private static final int N_ERA_CONSTANTS = AFTER_HEISEI.getValue() + ERA_OFFSET;
+    
     /**
      * Serialization version.
      */
@@ -139,12 +144,13 @@ public final class JapaneseEra
 
     static {
         ERA_CONFIG = JapaneseChronology.JCAL.getEras();
-
+        
         KNOWN_ERAS = new JapaneseEra[ERA_CONFIG.length];
         KNOWN_ERAS[0] = MEIJI;
         KNOWN_ERAS[1] = TAISHO;
         KNOWN_ERAS[2] = SHOWA;
         KNOWN_ERAS[3] = HEISEI;
+        KNOWN_ERAS[4] = AFTER_HEISEI;
         for (int i = N_ERA_CONSTANTS; i < ERA_CONFIG.length; i++) {
             CalendarDate date = ERA_CONFIG[i].getSinceDate();
             LocalDate isoDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth());
